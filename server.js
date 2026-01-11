@@ -62,4 +62,19 @@ app.post("/webhook", async (req, res) => {
 });
 
 app.get("/", (_, res) => res.send("OK"));
+// اختبار إرسال إشارة تجريبية
+app.get("/test", async (req, res) => {
+  try {
+    const testMsg = `
+🟢 CALL | SPX (TEST)
+⏱ TF: 1 Minute
+📊 Strength: 95% 💎
+🤖 تحالف المتداولين | أبو باسل & د. وائل
+    `;
+    await tgSend(testMsg);
+    res.send("Test signal sent to Telegram channel.");
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
 app.listen(process.env.PORT || 3000, () => console.log("Running"));
